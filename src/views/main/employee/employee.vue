@@ -19,7 +19,7 @@
     </div>
     <div class="gva-table-box">
       <el-table :data="tableData">
-        <el-table-column type="selection" width="55" />
+        <!-- <el-table-column type="selection" width="55" /> -->
         <el-table-column align="center" label="序号" min-width="60" prop="ID" />
         <el-table-column align="center" label="姓名" min-width="80" prop="name" />
         <el-table-column align="center" label="性别" min-width="60" prop="sex" />
@@ -33,9 +33,6 @@
         <el-table-column align="center" fixed="right" label="操作" width="200">
           <el-button icon="document" type="primary" @click="openDialog" link>编辑</el-button>
           <el-button icon="delete" type="danger" @click="deleteItem" link>删除</el-button>
-
-
-
         </el-table-column>
       </el-table>
       <div class="gva-pagination">
@@ -96,7 +93,6 @@
           </el-col>
         </el-row>
       </el-form>
-
 
       <template #footer>
         <span class="dialog-footer">
