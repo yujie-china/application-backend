@@ -23,6 +23,8 @@ function applicationTableData () {
       "产品经理",
       "销售经理"
     ]),
+    state: Mock.Random.pick(["在职", "离职"]),
+    time: Mock.Random.date("yyyy-MM-dd"),
     employment_status: Mock.Random.pick(["录用", "待定", "拒绝"]),
   })
 }
@@ -49,7 +51,7 @@ function applicationFormData () {
     political: "共青团员",
     phone: /^1(3|4|5|7|8)\d{9}$/,
     fixed_phone: "020-11811470",
-    ID_card: "81000000000000000",
+    ID_card: "810000000000055550000",
     email: "100000001@qq.com",
     wx: "fffffffff",
     marital: "1",

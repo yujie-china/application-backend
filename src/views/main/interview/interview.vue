@@ -16,7 +16,7 @@
         </div>
         <div class="gva-table-box">
             <el-table :data="itwTableData">
-                <el-table-column type="selection" width="55" />
+                <!-- <el-table-column type="selection" width="55" /> -->
                 <el-table-column align="center" label="序号" min-width="60" prop="ID" />
                 <el-table-column align="center" label="姓名" min-width="100" prop="name" />
                 <el-table-column align="center" label="性别" min-width="100" prop="sex" />
@@ -30,7 +30,7 @@
                 <el-table-column align="center" fixed="right" label="操作" width="250">
                     <template #default="scope">
                         <el-button icon="document" type="primary" @click="openDialog(scope.$index, scope.row.ID)"
-                            link>备注</el-button>
+                            link>评价</el-button>
 
                     </template>
 
@@ -42,13 +42,14 @@
                     @size-change="handleSizeChange" />
             </div>
         </div>
-        <el-dialog v-model="dialogFormVisible" title="备注">
-            <template v-if="itwData.operate">
+        <el-dialog v-model="dialogFormVisible" title="评价">
+            <template v-if="itwData.operate === 'scheduled'">
                 <el-form label-width="auto" :model="itwData">
                     <el-form-item label="部门领导">
-                        <el-radio-group v-model="itwData.radio" @change="handleRadioChange">
-                            <el-radio :label="true">运营（人事）</el-radio>
-                            <el-radio :label="false">研发</el-radio>
+                        <el-radio-group v-model="itwData.radio">
+                            <el-radio checked label="scheduled" @change="ChangeScheduled">运营</el-radio>
+                            <el-radio label="IT" @change="ChangeIT">研发</el-radio>
+                            <el-radio label="market" @change="ChangeMarket">市场</el-radio>
                         </el-radio-group>
                     </el-form-item>
                     <el-form-item label="面试官姓名">
@@ -65,24 +66,25 @@
                                 style="width: 100%" />
                         </el-col>
                     </el-form-item>
-                    <el-form-item label="运营（人事）面试结果" prop="resource">
+                    <el-form-item label="运营面试结果" prop="resource">
                         <el-radio-group v-model="itwData.itwResult">
                             <el-radio label="考虑"></el-radio>
                             <el-radio label="待定"></el-radio>
                             <el-radio label="不考虑"></el-radio>
                         </el-radio-group>
                     </el-form-item>
-                    <el-form-item label="运营（人事）面试建议">
+                    <el-form-item label="运营面试建议">
                         <el-input v-model="itwData.psnOpinions" type="textarea" autosize placeholder="面试官反馈" />
                     </el-form-item>
                 </el-form>
             </template>
-            <template v-else>
+            <template v-else-if="itwData.operate === 'IT'">
                 <el-form label-width="auto" v-model="itwData">
                     <el-form-item label="部门领导">
-                        <el-radio-group v-model="itwData.radio" @change="handleRadioChange">
-                            <el-radio :label="true">运营（人事）</el-radio>
-                            <el-radio :label="false">研发</el-radio>
+                        <el-radio-group v-model="itwData.radio">
+                            <el-radio checked label="scheduled" @change="ChangeScheduled">运营</el-radio>
+                            <el-radio label="IT" @change="ChangeIT">研发</el-radio>
+                            <el-radio label="market" @change="ChangeMarket">市场</el-radio>
                         </el-radio-group>
                     </el-form-item>
                     <el-form-item label="面试官姓名">
@@ -98,6 +100,13 @@
                             <el-time-picker v-model="itwData.time" label="Pick a time" placeholder="Pick a time"
                                 style="width: 100%" />
                         </el-col>
+                    </el-form-item>
+                    <el-form-item label="研发笔试评价" prop="resource">
+                        <el-radio-group v-model="itwData.writeResult">
+                            <el-radio label="好"></el-radio>
+                            <el-radio label="中"></el-radio>
+                            <el-radio label="差"></el-radio>
+                        </el-radio-group>
                     </el-form-item>
                     <el-form-item label="研发面试结果" prop="resource">
                         <el-radio-group v-model="itwData.itwResult">
@@ -107,6 +116,41 @@
                         </el-radio-group>
                     </el-form-item>
                     <el-form-item label="研发面试建议">
+                        <el-input v-model="itwData.psnOpinions" type="textarea" autosize placeholder="面试官反馈" />
+                    </el-form-item>
+                </el-form>
+            </template>
+            <template v-else-if="itwData.operate === 'market'">
+                <el-form label-width="auto" v-model="itwData">
+                    <el-form-item label="部门领导">
+                        <el-radio-group v-model="itwData.radio">
+                            <el-radio checked label="scheduled" @change="ChangeScheduled">运营</el-radio>
+                            <el-radio label="IT" @change="ChangeIT">研发</el-radio>
+                            <el-radio label="market" @change="ChangeMarket">市场</el-radio>
+                        </el-radio-group>
+                    </el-form-item>
+                    <el-form-item label="面试官姓名">
+                        <el-input v-model="itwData.name" />
+                    </el-form-item>
+                    <el-form-item label="面试时间">
+                        <el-col :span="11">
+                            <el-date-picker v-model="itwData.day" type="date" label="Pick a date" placeholder="Pick a date"
+                                style="width: 100%" />
+                        </el-col>
+                        <el-col class="text-center" :span="1" style="margin: 0 0.5rem">-</el-col>
+                        <el-col :span="11">
+                            <el-time-picker v-model="itwData.time" label="Pick a time" placeholder="Pick a time"
+                                style="width: 100%" />
+                        </el-col>
+                    </el-form-item>
+                    <el-form-item label="市场面试结果" prop="resource">
+                        <el-radio-group v-model="itwData.itwResult">
+                            <el-radio label="考虑"></el-radio>
+                            <el-radio label="待定"></el-radio>
+                            <el-radio label="不考虑"></el-radio>
+                        </el-radio-group>
+                    </el-form-item>
+                    <el-form-item label="市场面试建议">
                         <el-input v-model="itwData.psnOpinions" type="textarea" autosize placeholder="面试官反馈" />
                     </el-form-item>
                 </el-form>
@@ -141,9 +185,10 @@ const pageSize = ref(10)
 const searchInfo = ref({})
 
 const itwData = ref({
-    radio: true,
+    radio: "scheduled",
     itwResult: "",
-    operate: true,
+    writeResult: "",
+    operate: "scheduled",
     psnOpinions: "",
     name: "",
     day: "",
@@ -151,8 +196,14 @@ const itwData = ref({
 })
 let itwActiveIndex = ref(-1)
 
-const handleRadioChange = function (value) {
-    itwData.value.operate = value
+const ChangeScheduled = () => {
+    itwData.value.operate = "scheduled"
+}
+const ChangeIT = () => {
+    itwData.value.operate = "IT"
+}
+const ChangeMarket = () => {
+    itwData.value.operate = "market"
 }
 
 const openDialog = function (index, id) {
@@ -166,13 +217,14 @@ const openDialog = function (index, id) {
 }
 const clearData = function () {
     itwData.value = {
-        radio: 3,
+        radio: "scheduled",
         name: "",
         day: "",
         time: "",
         itwResult: "",
+        writeResult: "",
         psnOpinions: "",
-        operate: false
+        operate: "scheduled"
     }
     dialogFormVisible.value = false
     itwActiveIndex.value = -1
@@ -180,13 +232,14 @@ const clearData = function () {
 
 const submitData = function () {
     itwData.value = {
-        radio: 3,
+        radio: "scheduled",
         name: "",
         day: "",
         time: "",
         itwResult: "",
+        writeResult: "",
         psnOpinions: "",
-        operate: false
+        operate: "scheduled"
     }
     dialogFormVisible.value = false
     itwActiveIndex.value = -1
