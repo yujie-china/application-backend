@@ -1,5 +1,5 @@
 import hyRequest from "../index"
-//列表
+//表格
 export function applyTableRequest (offset, size) {
   return hyRequest.get({
     url: `backend/application/tableData?offset=${offset}&size=${size}`
@@ -40,14 +40,16 @@ export function upMarketComment (data) {
     },
   })
 }
-
-
-
-export function applyFormRequest () {
+//application详情数据
+export function appFormDetail (name) {
   return hyRequest.get({
-    url: "/application/formData"
+    url: `backend/application/detailsData?name=${name}`,
+    headers: {
+      "Content-Type": "application/json",
+    },
   })
 }
+
 
 export function employeeTableRequest () {
   return hyRequest.get({

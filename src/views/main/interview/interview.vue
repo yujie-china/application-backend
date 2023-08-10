@@ -58,13 +58,6 @@
                                 <el-date-picker v-model="operateCommentData.operate_itw_time" type="date"
                                     label="Pick a date" format="YYYY/MM/DD" placeholder="Pick a date" style="width: 100%" />
                             </el-col>
-
-                            <!-- <el-col class="text-center" :span="1" style="margin: 0 0.5rem">-</el-col>
-                        <el-col :span="11">
-                            <el-time-picker v-model="itwData.time" label="Pick a time" placeholder="Pick a time"
-                                style="width: 100%" />
-                        </el-col> -->
-
                         </el-form-item>
                         <el-form-item label="运营面试结果" prop="resource">
                             <el-radio-group v-model="operateCommentData.operate_itw_result">
@@ -138,11 +131,6 @@
                                 <el-date-picker v-model="marketCommentData.market_itw_time" type="date" label="Pick a date"
                                     placeholder="Pick a date" format="YYYY/MM/DD" style="width: 100%" />
                             </el-col>
-                            <!-- <el-col class="text-center" :span="1" style="margin: 0 0.5rem">-</el-col>
-                        <el-col :span="11">
-                            <el-time-picker v-model="itwData.time" label="Pick a time" placeholder="Pick a time"
-                                style="width: 100%" />
-                        </el-col> -->
                         </el-form-item>
                         <el-form-item label="市场面试结果" prop="resource">
                             <el-radio-group v-model="marketCommentData.market_itw_result">
@@ -183,7 +171,7 @@ const currentPage = ref(1)
 const pageSize = ref(10)
 //使用interview仓库
 const interviewStore = useInterviewStore()
-interviewStore.fetchitwTableData()
+// interviewStore.fetchitwTableData()
 const { itwTableData, allDataLength, operateComment, researchComment, marketComment } = storeToRefs(interviewStore)
 
 const redata = () => {
@@ -201,7 +189,6 @@ function handleSizeChange () {
 function handleCurrentChange () {
     redata()
 }
-
 const operateCommentData = operateComment.value
 const researchCommentData = researchComment.value
 const marketCommentData = marketComment.value
@@ -233,48 +220,26 @@ const clearData = function () {
         radio: "scheduled",
         operate: "scheduled"
     }
-    // operateCommentData.value = {
-    //     main_name: "",
-    //     operate_itw_name: "",
-    //     operate_itw_time: "",
-    //     operate_itw_result: "",
-    //     operate_itw_suggest: ""
-    // }
-    // researchCommentData.value = {
-    //     main_name: "",
-    //     research_itw_name: "",
-    //     research_itw_time: "",
-    //     research_itw_write_result: "",
-    //     research_itw_result: "",
-    //     research_itw_suggestion: ""
-    // }
-    // marketCommentData.value = {
-    //     main_name: "",
-    //     market_itw_name: "",
-    //     market_itw_time: "",
-    //     market_itw_result: "",
-    //     market_itw_suggest: ""
-    // }
     dialogFormVisible.value = false
 }
 
-const submitData = function () {
-
-
+const submitData = async function () {
     //格式化时间
-
     if (itwData.value.operate == "scheduled") {
         const Date = formattime(operateCommentData.operate_itw_time)
         operateCommentData.operate_itw_time = Date
-        interviewStore.upOperateCommentData(operateCommentData)
+        await interviewStore.upOperateCommentData(operateCommentData)
+        redata()
     } else if (itwData.value.operate == "IT") {
         const Date = formattime(researchCommentData.research_itw_time)
         researchCommentData.research_itw_time = Date
-        interviewStore.upResearchCommentData(researchCommentData)
+        await interviewStore.upResearchCommentData(researchCommentData)
+        redata()
     } else if (itwData.value.operate == "market") {
         const Date = formattime(marketCommentData.market_itw_time)
         marketCommentData.market_itw_time = Date
-        interviewStore.upMarketCommentData(marketCommentData)
+        await interviewStore.upMarketCommentData(marketCommentData)
+        redata()
     }
     itwData.value = {
         radio: "scheduled",

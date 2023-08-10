@@ -1,17 +1,20 @@
-import { applyFormRequest, applyTableRequest } from "@/service/main/main"
+import { appFormDetail, applyTableRequest } from "@/service/main/main"
 import { defineStore } from "pinia"
 
 interface IappState {
   appFormData: any
   appTableData: any
-  allDataLength: number
-
+  allDataLength: number,
+  appDetailData: object
 }
 const useApplicationStore = defineStore("application", {
   state: (): IappState => ({
     appFormData: {},
     appTableData: [],
-    allDataLength: 0
+    allDataLength: 0,
+    appDetailData: {
+      position: ""
+    }
   }),
   actions: {
     async fetchapplyTableData (offset, size) {
@@ -19,10 +22,11 @@ const useApplicationStore = defineStore("application", {
       this.appTableData = res.data
       this.allDataLength = res.length
     },
-    // async fetchapplyFormData () {
-    //   const res = await applyFormRequest()
-    //   this.appFormData = res.data
-    // }
+    async fetchapplyDetailData (name) {
+      const res = await appFormDetail(name)
+      this.appDetailData = res.data
+
+    }
   }
 })
 export default useApplicationStore
