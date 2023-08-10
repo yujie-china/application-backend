@@ -47,7 +47,7 @@
         </el-sub-menu>
 
         <!--  4.正式员工管理      <>-->
-        <el-sub-menu index="4">
+        <!-- <el-sub-menu index="4">
           <template #title>
             <el-icon>
               <ShoppingBag />
@@ -55,7 +55,7 @@
             <span>员工管理</span>
           </template>
           <el-menu-item index="4-1" @click="goEmployee()">员工管理</el-menu-item>
-        </el-sub-menu>
+        </el-sub-menu> -->
       </el-menu>
     </div>
   </div>
