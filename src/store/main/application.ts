@@ -1,4 +1,4 @@
-import { appFormDetail, applyTableRequest } from "@/service/main/main"
+import { appFormDetail, applyTableRequest, upFinallyResult } from "@/service/main/main"
 import { defineStore } from "pinia"
 
 interface IappState {
@@ -25,8 +25,14 @@ const useApplicationStore = defineStore("application", {
     async fetchapplyDetailData (name) {
       const res = await appFormDetail(name)
       this.appDetailData = res.data
+    },
+    async upfinallyResultData (name, finallyResult) {
+
+
+      await upFinallyResult(name, finallyResult)
 
     }
+
   }
 })
 export default useApplicationStore

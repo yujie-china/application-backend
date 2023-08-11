@@ -30,12 +30,9 @@
         <el-table-column align="center" label="在岗状态" min-width="80" prop="state" />
         <el-table-column align="center" label="可到岗时间" min-width="120" prop="time" />
         <el-table-column align="center" label="面试结果" min-width="80" prop="result" />
-        <el-table-column align="center" fixed="right" label="操作" width="300">
+        <el-table-column align="center" fixed="right" label="操作" width="100">
           <template #default="scope">
             <el-button icon="document" type="primary" link @click="openDialog(scope.row.name)">详情</el-button>
-            <el-button icon="download" type="primary" link>下载</el-button>
-            <el-button icon="share" type="primary" link>转发</el-button>
-            <el-button icon="delete" type="primary" link>删除</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -46,7 +43,7 @@
       </div>
       <el-dialog v-model="dialogFormVisible" title="详情信息" align-center>
         <el-scrollbar height="700px">
-          <el-form size="small" :model="FormData">
+          <el-form class="downForm" size="small" :model="FormData">
             <el-form>
               <el-row :gutter="24">
                 <el-col :span="24">
@@ -67,20 +64,17 @@
                     <el-input disabled="disabled" v-model="FormData.price" autocomplete="off" />
                   </el-form-item>
                 </el-col>
-                <el-col :span="7">
+                <el-col :span="8">
                   <el-form-item label="可到岗日期">
                     <el-input disabled="disabled" v-model="FormData.come_time" autocomplete="off" />
                   </el-form-item>
                 </el-col>
-                <el-col :span="9">
-                  <el-form-item label="是否接受出差">
-                    <el-radio-group v-model="FormData.is_business_trip" disabled="disabled">
-                      <el-radio label="1" size="small">短期</el-radio>
-                      <el-radio label="2" size="small">长期</el-radio>
-                      <el-radio label="3" size="small">不接受</el-radio>
-                    </el-radio-group>
+                <el-col :span="8">
+                  <el-form-item label="通过何种途径获知该职位">
+                    <el-input disabled="disabled" v-model="FormData.road" autocomplete="off" />
                   </el-form-item>
                 </el-col>
+
                 <el-col :span="8">
                   <el-form-item label="在此之前是否来我司面试过">
                     <el-radio-group v-model="FormData.isAgain" disabled="disabled">
@@ -89,12 +83,50 @@
                     </el-radio-group>
                   </el-form-item>
                 </el-col>
-                <el-col :span="8">
-                  <el-form-item label="通过何种途径获知该职位">
-                    <el-input disabled="disabled" v-model="FormData.road" autocomplete="off" />
+                <el-col :span="10">
+                  <el-form-item label="是否接受出差">
+                    <el-radio-group v-model="FormData.is_business_trip" disabled="disabled">
+                      <el-radio label="1" size="small">短期</el-radio>
+                      <el-radio label="2" size="small">长期</el-radio>
+                      <el-radio label="3" size="small">不接受</el-radio>
+                    </el-radio-group>
                   </el-form-item>
                 </el-col>
               </el-row>
+
+              <el-form v-if="FormData.friend_name && FormData.friend_name !== '未填数据'">
+                <el-row :gutter="24">
+                  <el-col :span="24">
+                    <el-form-item label="在本公司任职的亲友及原同事"></el-form-item>
+                  </el-col>
+                  <el-col :span="8">
+                    <el-form-item label="姓名">
+                      <el-input disabled="disabled" v-model="FormData.friend_name" autocomplete="off" />
+                    </el-form-item>
+                  </el-col>
+                  <el-col :span="8">
+                    <el-form-item label="关系">
+                      <el-input disabled="disabled" v-model="FormData.community" autocomplete="off" />
+                    </el-form-item>
+                  </el-col>
+                  <el-col :span="8">
+                    <el-form-item label="在何部门任何职位">
+                      <el-input disabled="disabled" v-model="FormData.office" autocomplete="off" />
+                    </el-form-item>
+                  </el-col>
+                </el-row>
+              </el-form>
+
+              <el-form v-else>
+                <el-row :gutter="24">
+                  <el-col :span="8">
+                    <el-form-item label="在本公司任职的亲友及原同事"></el-form-item>
+                  </el-col>
+                  <el-col :span="8">
+                    <el-input disabled="disabled" autocomplete="off" placeholder="无在本公司任职的亲友及原同事" />
+                  </el-col>
+                </el-row>
+              </el-form>
             </el-form>
             <el-form>
               <el-row :gutter="24">
@@ -207,6 +239,17 @@
                   </el-form-item>
                 </el-col>
               </el-row>
+              <el-form>
+                <el-row :gutter="24">
+                  <el-col :span="8">
+                    <el-form-item label="是否患有影响本职工作的各种疾病">
+                      <el-input disabled="disabled" v-model="FormData.sick" autocomplete="off" />
+                    </el-form-item>
+                  </el-col>
+                </el-row>
+              </el-form>
+
+
             </el-form>
             <el-form>
               <el-col :span="24">
@@ -725,60 +768,12 @@
                   </el-col>
                 </el-row>
               </el-form>
-
             </el-form>
 
             <el-form>
               <el-row :gutter="24">
                 <el-col :span="24">
-                  <el-form-item label="八、健康状况"></el-form-item>
-                </el-col>
-                <el-col :span="8">
-                  <el-form-item label="是否患有影响本职工作的各种疾病">
-                    <el-input disabled="disabled" v-model="FormData.sick" autocomplete="off" />
-                  </el-form-item>
-                </el-col>
-              </el-row>
-            </el-form>
-
-            <el-form v-if="FormData.friend_name && FormData.friend_name !== '未填数据'">
-              <el-row :gutter="24">
-                <el-col :span="24">
-                  <el-form-item label="九、在本公司任职的亲友及原同事"></el-form-item>
-                </el-col>
-                <el-col :span="8">
-                  <el-form-item label="姓名">
-                    <el-input disabled="disabled" v-model="FormData.friend_name" autocomplete="off" />
-                  </el-form-item>
-                </el-col>
-                <el-col :span="8">
-                  <el-form-item label="关系">
-                    <el-input disabled="disabled" v-model="FormData.community" autocomplete="off" />
-                  </el-form-item>
-                </el-col>
-                <el-col :span="8">
-                  <el-form-item label="在何部门任何职位">
-                    <el-input disabled="disabled" v-model="FormData.office" autocomplete="off" />
-                  </el-form-item>
-                </el-col>
-              </el-row>
-            </el-form>
-
-            <el-form v-else>
-              <el-col :span="24">
-                <el-form-item label="九、在本公司任职的亲友及原同事"></el-form-item>
-              </el-col>
-              <el-row :gutter="24">
-                <el-col :span="24">
-                  <el-form-item label="无在本公司任职的亲友及原同事"></el-form-item>
-                </el-col>
-              </el-row>
-            </el-form>
-
-            <el-form>
-              <el-row :gutter="24">
-                <el-col :span="24">
-                  <el-form-item label="十、声明"></el-form-item>
+                  <el-form-item label="八、声明"></el-form-item>
                 </el-col>
                 <el-col :span="8">
                   <el-form-item label="申请人签字">
@@ -792,140 +787,144 @@
                 </el-col>
               </el-row>
             </el-form>
+            <el-form>
+              <el-col :span="24">
+                <el-form-item label="九、评价"></el-form-item>
+              </el-col>
+              <el-form v-if="FormData.operate_itw_name">
+                <el-row :gutter="24">
+                  <el-col :span="24">
+                    <el-form-item label="运营评价"></el-form-item>
+                  </el-col>
+                  <el-col :span="8">
+                    <el-form-item label="面试官姓名">
+                      <el-input disabled="disabled" v-model="FormData.operate_itw_name" autocomplete="off" />
+                    </el-form-item>
+                  </el-col>
+                  <el-col :span="8">
+                    <el-form-item label="面试时间">
+                      <el-input disabled="disabled" v-model="FormData.operate_itw_time" autocomplete="off" />
+                    </el-form-item>
+                  </el-col>
+                  <el-col :span="8">
+                    <el-form-item label="面试结果">
+                      <el-input disabled="disabled" v-model="FormData.operate_itw_result" autocomplete="off" />
+                    </el-form-item>
+                  </el-col>
+                  <el-col :span="8">
+                    <el-form-item label="面试建议">
+                      <el-input disabled="disabled" v-model="FormData.operate_itw_suggest" autocomplete="off" />
+                    </el-form-item>
+                  </el-col>
+                </el-row>
+              </el-form>
 
-            <el-form v-if="FormData.operate_itw_name">
-              <el-row :gutter="24">
-                <el-col :span="24">
-                  <el-form-item label="运营评论"></el-form-item>
-                </el-col>
-                <el-col :span="8">
-                  <el-form-item label="面试官姓名">
-                    <el-input disabled="disabled" v-model="FormData.operate_itw_name" autocomplete="off" />
-                  </el-form-item>
-                </el-col>
-                <el-col :span="8">
-                  <el-form-item label="面试时间">
-                    <el-input disabled="disabled" v-model="FormData.operate_itw_time" autocomplete="off" />
-                  </el-form-item>
-                </el-col>
-                <el-col :span="8">
-                  <el-form-item label="面试结果">
-                    <el-input disabled="disabled" v-model="FormData.operate_itw_result" autocomplete="off" />
-                  </el-form-item>
-                </el-col>
-                <el-col :span="8">
-                  <el-form-item label="面试建议">
-                    <el-input disabled="disabled" v-model="FormData.operate_itw_suggest" autocomplete="off" />
-                  </el-form-item>
-                </el-col>
-              </el-row>
+              <el-form v-if="FormData.research_itw_name">
+                <el-row :gutter="24">
+                  <el-col :span="24">
+                    <el-form-item label="研发评价"></el-form-item>
+                  </el-col>
+                  <el-col :span="8">
+                    <el-form-item label="面试官姓名">
+                      <el-input disabled="disabled" v-model="FormData.research_itw_name" autocomplete="off" />
+                    </el-form-item>
+                  </el-col>
+                  <el-col :span="8">
+                    <el-form-item label="面试时间">
+                      <el-input disabled="disabled" v-model="FormData.research_itw_time" autocomplete="off" />
+                    </el-form-item>
+                  </el-col>
+                  <el-col :span="8">
+                    <el-form-item label="笔试结果">
+                      <el-input disabled="disabled" v-model="FormData.research_itw_write_result" autocomplete="off" />
+                    </el-form-item>
+                  </el-col>
+                  <el-col :span="8">
+                    <el-form-item label="面试结果">
+                      <el-input disabled="disabled" v-model="FormData.research_itw_result" autocomplete="off" />
+                    </el-form-item>
+                  </el-col>
+                  <el-col :span="8">
+                    <el-form-item label="面试建议">
+                      <el-input disabled="disabled" v-model="FormData.research_itw_suggestion" autocomplete="off" />
+                    </el-form-item>
+                  </el-col>
+                </el-row>
+              </el-form>
+
+              <el-form v-if="FormData.market_itw_name">
+                <el-row :gutter="24">
+                  <el-col :span="24">
+                    <el-form-item label="市场评价"></el-form-item>
+                  </el-col>
+                  <el-col :span="8">
+                    <el-form-item label="面试官姓名">
+                      <el-input disabled="disabled" v-model="FormData.market_itw_name" autocomplete="off" />
+                    </el-form-item>
+                  </el-col>
+                  <el-col :span="8">
+                    <el-form-item label="面试时间">
+                      <el-input disabled="disabled" v-model="FormData.market_itw_time" autocomplete="off" />
+                    </el-form-item>
+                  </el-col>
+                  <el-col :span="8">
+                    <el-form-item label="面试结果">
+                      <el-input disabled="disabled" v-model="FormData.market_itw_result" autocomplete="off" />
+                    </el-form-item>
+                  </el-col>
+                  <el-col :span="8">
+                    <el-form-item label="面试建议">
+                      <el-input disabled="disabled" v-model="FormData.market_itw_suggest" autocomplete="off" />
+                    </el-form-item>
+                  </el-col>
+                </el-row>
+              </el-form>
+
+              <el-form v-if="FormData.operate_itw_name">
+                <el-row :gutter="24">
+                  <el-col :span="24">
+                    <el-form-item label="运营评论"></el-form-item>
+                  </el-col>
+                  <el-col :span="8">
+                    <el-form-item label="面试官姓名">
+                      <el-input disabled="disabled" v-model="FormData.operate_itw_name" autocomplete="off" />
+                    </el-form-item>
+                  </el-col>
+                  <el-col :span="8">
+                    <el-form-item label="面试">
+                      <el-input disabled="disabled" v-model="FormData.operate_itw_time" autocomplete="off" />
+                    </el-form-item>
+                  </el-col>
+                  <el-col :span="8">
+                    <el-form-item label="面试结果">
+                      <el-input disabled="disabled" v-model="FormData.operate_itw_result" autocomplete="off" />
+                    </el-form-item>
+                  </el-col>
+                  <el-col :span="8">
+                    <el-form-item label="面试建议">
+                      <el-input disabled="disabled" v-model="FormData.operate_itw_suggest" autocomplete="off" />
+                    </el-form-item>
+                  </el-col>
+                </el-row>
+              </el-form>
             </el-form>
 
-            <el-form v-if="FormData.research_itw_name">
+            <el-form>
               <el-row :gutter="24">
-                <el-col :span="24">
-                  <el-form-item label="研发评论"></el-form-item>
-                </el-col>
                 <el-col :span="8">
-                  <el-form-item label="面试官姓名">
-                    <el-input disabled="disabled" v-model="FormData.research_itw_name" autocomplete="off" />
+                  <el-form-item label="最终结果">
+                    <el-input v-model="FormData.finallyResult" autocomplete="off" :placeholder="FormData.finallyResult" />
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
-                  <el-form-item label="面试时间">
-                    <el-input disabled="disabled" v-model="FormData.research_itw_time" autocomplete="off" />
-                  </el-form-item>
-                </el-col>
-                <el-col :span="8">
-                  <el-form-item label="笔试结果">
-                    <el-input disabled="disabled" v-model="FormData.research_itw_write_result" autocomplete="off" />
-                  </el-form-item>
-                </el-col>
-                <el-col :span="8">
-                  <el-form-item label="面试结果">
-                    <el-input disabled="disabled" v-model="FormData.research_itw_result" autocomplete="off" />
-                  </el-form-item>
-                </el-col>
-                <el-col :span="8">
-                  <el-form-item label="面试建议">
-                    <el-input disabled="disabled" v-model="FormData.research_itw_suggestion" autocomplete="off" />
-                  </el-form-item>
-                </el-col>
-              </el-row>
-            </el-form>
-
-            <el-form v-if="FormData.market_itw_name">
-              <el-row :gutter="24">
-                <el-col :span="24">
-                  <el-form-item label="市场评论"></el-form-item>
-                </el-col>
-                <el-col :span="8">
-                  <el-form-item label="面试官姓名">
-                    <el-input disabled="disabled" v-model="FormData.market_itw_name" autocomplete="off" />
-                  </el-form-item>
-                </el-col>
-                <el-col :span="8">
-                  <el-form-item label="面试时间">
-                    <el-input disabled="disabled" v-model="FormData.market_itw_time" autocomplete="off" />
-                  </el-form-item>
-                </el-col>
-                <el-col :span="8">
-                  <el-form-item label="面试结果">
-                    <el-input disabled="disabled" v-model="FormData.market_itw_result" autocomplete="off" />
-                  </el-form-item>
-                </el-col>
-                <el-col :span="8">
-                  <el-form-item label="面试建议">
-                    <el-input disabled="disabled" v-model="FormData.market_itw_suggest" autocomplete="off" />
-                  </el-form-item>
-                </el-col>
-              </el-row>
-            </el-form>
-
-            <el-form v-if="FormData.operate_itw_name">
-              <el-row :gutter="24">
-                <el-col :span="24">
-                  <el-form-item label="运营评论"></el-form-item>
-                </el-col>
-                <el-col :span="8">
-                  <el-form-item label="面试官姓名">
-                    <el-input disabled="disabled" v-model="FormData.operate_itw_name" autocomplete="off" />
-                  </el-form-item>
-                </el-col>
-                <el-col :span="8">
-                  <el-form-item label="面试">
-                    <el-input disabled="disabled" v-model="FormData.operate_itw_time" autocomplete="off" />
-                  </el-form-item>
-                </el-col>
-                <el-col :span="8">
-                  <el-form-item label="面试结果">
-                    <el-input disabled="disabled" v-model="FormData.operate_itw_result" autocomplete="off" />
-                  </el-form-item>
-                </el-col>
-                <el-col :span="8">
-                  <el-form-item label="面试建议">
-                    <el-input disabled="disabled" v-model="FormData.operate_itw_suggest" autocomplete="off" />
+                  <el-form-item>
+                    <el-button type="primary" @click="submitResults">确定</el-button>
                   </el-form-item>
                 </el-col>
               </el-row>
             </el-form>
           </el-form>
-
-          <el-form>
-            <el-row :gutter="24">
-              <el-col :span="8">
-                <el-form-item label="最终结果">
-                  <el-input v-model="FormData.finallyResult" autocomplete="off" />
-                </el-form-item>
-              </el-col>
-              <el-col :span="8">
-                <el-form-item>
-                  <el-button type="primary">确定</el-button>
-                </el-form-item>
-              </el-col>
-            </el-row>
-          </el-form>
-
+          <el-button type="primary" @click="downloadImage">下载</el-button>
         </el-scrollbar>
       </el-dialog>
     </div>
@@ -935,7 +934,9 @@
 <script lang="ts" setup>
 import useApplicationStore from "@/store/main/application"
 import { storeToRefs } from "pinia"
-import { ref, toRaw } from "vue"
+import { ref, toRaw, nextTick } from "vue"
+import html2canvas from "html2canvas"
+
 //使用application仓库
 const dialogFormVisible = ref(false)
 const searchInfo = ref({})
@@ -956,7 +957,11 @@ const fetchDeatil = (name) => {
   applicationStore.fetchapplyDetailData(name)
 }
 
+
+const cn_name = ref()
+
 const openDialog = async (name) => {
+  cn_name.value = name
   fetchDeatil(name)
   const Data = await toRaw(appDetailData._object)
   FormData.value = Data.appDetailData
@@ -975,7 +980,41 @@ function handleCurrentChange () {
 }
 
 
+async function submitResults () {
+
+  applicationStore.upfinallyResultData(cn_name.value, FormData.value.finallyResult)
+  await redata()
+  dialogFormVisible.value = flase
+}
+
+
+
+async function downloadImage () {
+  const formElement = document.querySelector(".downForm") // 获取 el-form 元素
+  console.log(formElement)
+
+  const canvas = document.createElement("canvas")
+
+  // 设置 canvas 宽高
+  canvas.width = formElement.offsetWidth
+  canvas.height = formElement.offsetHeight
+
+  // 将 el-form 内容绘制到 canvas
+  await html2canvas(formElement, { canvas })
+
+  // 将绘制的内容导出为图片
+  const imageDataUrl = canvas.toDataURL("image/png")
+
+  // 创建临时链接并下载图片
+  const link = document.createElement("a")
+  link.href = imageDataUrl
+  link.download = "form_image.png"
+  link.click()
+}
+
+
 </script>
+
 
 <style scoped lang="less">
 .con {

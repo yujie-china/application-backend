@@ -49,7 +49,20 @@ export function appFormDetail (name) {
     },
   })
 }
-
+//最终结果
+export function upFinallyResult (name, finallyResult) {
+  const requestData = {
+    name: name,
+    finallyResult: finallyResult
+  }
+  return hyRequest.post({
+    url: "backend/finallyResult",
+    data: requestData,
+    headers: {
+      "Content-Type": "application/json",
+    },
+  })
+}
 
 export function employeeTableRequest () {
   return hyRequest.get({
