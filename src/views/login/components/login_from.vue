@@ -36,6 +36,8 @@
 <script lang="ts" setup>
 import { ref, reactive } from "vue"
 import { useRouter } from "vue-router"
+import { ElMessage } from "element-plus"
+import "element-plus/theme-chalk/el-message.css"
 
 const isshow = ref(true)
 const changeShow = function () {
@@ -43,7 +45,7 @@ const changeShow = function () {
 }
 
 const FormData = ref({
-    phone: "12345678912",
+    phone: "18317901234",
     password: "123456",
     code: ""
 })
@@ -55,10 +57,15 @@ const rules = reactive({
 })
 const router = useRouter()
 function goMain () {
-    const url = {
-        path: "/main/home"
+    if (FormData.value.phone == "18317901234" && FormData.value.password == "123456") {
+        const url = {
+            path: "/main/home"
+        }
+        router.push(url)
+    } else {
+        ElMessage.error("帐号或密码错误")
     }
-    router.push(url)
+
 }
 
 </script>
