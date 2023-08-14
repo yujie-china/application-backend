@@ -243,7 +243,7 @@
                 <el-row :gutter="24">
                   <el-col :span="8">
                     <el-form-item label="是否患有影响本职工作的各种疾病">
-                      <el-input disabled="disabled" v-model="FormData.sick" autocomplete="off" />
+                      <el-input disabled="disabled" v-model="FormData.sick_level" autocomplete="off" />
                     </el-form-item>
                   </el-col>
                 </el-row>
@@ -354,11 +354,6 @@
               <el-form>
                 <el-row :gutter="24">
                   <el-col :span="8">
-                    <el-form-item label="学校名称">
-                      <el-input disabled="disabled" v-model="FormData.school_name1" autocomplete="off" />
-                    </el-form-item>
-                  </el-col>
-                  <el-col :span="8">
                     <el-form-item label="开始时间">
                       <el-input disabled="disabled" v-model="FormData.start_time1" autocomplete="off" />
                     </el-form-item>
@@ -366,6 +361,11 @@
                   <el-col :span="8">
                     <el-form-item label="结束时间">
                       <el-input disabled="disabled" v-model="FormData.end_time1" autocomplete="off" />
+                    </el-form-item>
+                  </el-col>
+                  <el-col :span="8">
+                    <el-form-item label="学校名称">
+                      <el-input disabled="disabled" v-model="FormData.school_name1" autocomplete="off" />
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
@@ -389,11 +389,6 @@
               <el-form v-if="FormData.school_name2 && FormData.school_name2 !== '未填数据'">
                 <el-row :gutter="24">
                   <el-col :span="8">
-                    <el-form-item label="学校名称">
-                      <el-input disabled="disabled" v-model="FormData.school_name2" autocomplete="off" />
-                    </el-form-item>
-                  </el-col>
-                  <el-col :span="8">
                     <el-form-item label="开始时间">
                       <el-input disabled="disabled" v-model="FormData.start_time2" autocomplete="off" />
                     </el-form-item>
@@ -401,6 +396,11 @@
                   <el-col :span="8">
                     <el-form-item label="结束时间">
                       <el-input disabled="disabled" v-model="FormData.end_time2" autocomplete="off" />
+                    </el-form-item>
+                  </el-col>
+                  <el-col :span="8">
+                    <el-form-item label="学校名称">
+                      <el-input disabled="disabled" v-model="FormData.school_name2" autocomplete="off" />
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
@@ -424,11 +424,6 @@
               <el-form v-if="FormData.school_name3 && FormData.school_name3 !== '未填数据'">
                 <el-row :gutter="24">
                   <el-col :span="8">
-                    <el-form-item label="学校名称">
-                      <el-input disabled="disabled" v-model="FormData.school_name3" autocomplete="off" />
-                    </el-form-item>
-                  </el-col>
-                  <el-col :span="8">
                     <el-form-item label="开始时间">
                       <el-input disabled="disabled" v-model="FormData.start_time3" autocomplete="off" />
                     </el-form-item>
@@ -436,6 +431,11 @@
                   <el-col :span="8">
                     <el-form-item label="结束时间">
                       <el-input disabled="disabled" v-model="FormData.end_time3" autocomplete="off" />
+                    </el-form-item>
+                  </el-col>
+                  <el-col :span="8">
+                    <el-form-item label="学校名称">
+                      <el-input disabled="disabled" v-model="FormData.school_name3" autocomplete="off" />
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
@@ -459,11 +459,6 @@
               <el-form v-if="FormData.school_name4 && FormData.school_name4 !== '未填数据'">
                 <el-row :gutter="24">
                   <el-col :span="8">
-                    <el-form-item label="学校名称">
-                      <el-input disabled="disabled" v-model="FormData.school_name4" autocomplete="off" />
-                    </el-form-item>
-                  </el-col>
-                  <el-col :span="8">
                     <el-form-item label="开始时间">
                       <el-input disabled="disabled" v-model="FormData.start_time4" autocomplete="off" />
                     </el-form-item>
@@ -471,6 +466,11 @@
                   <el-col :span="8">
                     <el-form-item label="结束时间">
                       <el-input disabled="disabled" v-model="FormData.end_time4" autocomplete="off" />
+                    </el-form-item>
+                  </el-col>
+                  <el-col :span="8">
+                    <el-form-item label="学校名称">
+                      <el-input disabled="disabled" v-model="FormData.school_name4" autocomplete="off" />
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
@@ -498,7 +498,6 @@
               <el-col :span="24">
                 <el-form-item label="五、主要培训经历"></el-form-item>
               </el-col>
-
               <el-form v-if="FormData.trainingTime1 && FormData.trainingTime1 !== '未填数据'">
                 <el-row :gutter="24">
                   <el-col :span="8">
