@@ -934,7 +934,7 @@
 <script lang="ts" setup>
 import useApplicationStore from "@/store/main/application"
 import { storeToRefs } from "pinia"
-import { ref, toRaw, nextTick } from "vue"
+import { ref, toRaw } from "vue"
 import html2canvas from "html2canvas"
 
 //使用application仓库
@@ -981,17 +981,15 @@ function handleCurrentChange () {
 
 
 async function submitResults () {
-
-  applicationStore.upfinallyResultData(cn_name.value, FormData.value.finallyResult)
-  await redata()
+  await applicationStore.upfinallyResultData(cn_name.value, FormData.value.finallyResult)
+  redata()
   dialogFormVisible.value = flase
 }
 
 
-
 async function downloadImage () {
   const formElement = document.querySelector(".downForm") // 获取 el-form 元素
-  console.log(formElement)
+  // console.log(formElement)
 
   const canvas = document.createElement("canvas")
 
@@ -1011,10 +1009,7 @@ async function downloadImage () {
   link.download = "form_image.png"
   link.click()
 }
-
-
 </script>
-
 
 <style scoped lang="less">
 .con {
