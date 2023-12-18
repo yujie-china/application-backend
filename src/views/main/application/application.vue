@@ -28,7 +28,7 @@
         <el-table-column align="center" label="专业" min-width="160" prop="major" />
         <el-table-column align="center" label="应聘职位" min-width="140" prop="position" />
         <el-table-column align="center" label="在岗状态" min-width="80" prop="state" />
-        <el-table-column align="center" label="可到岗时间" min-width="120" prop="time" />
+        <!-- <el-table-column align="center" label="可到岗时间" min-width="120" prop="time" /> -->
         <el-table-column align="center" label="面试结果" min-width="80" prop="result" />
         <el-table-column align="center" fixed="right" label="操作" width="100">
           <template #default="scope">
@@ -54,35 +54,35 @@
                     <el-input disabled="disabled" v-model="FormData.position" autocomplete="off" />
                   </el-form-item>
                 </el-col>
-                <el-col :span="8">
+                <!-- <el-col :span="8">
                   <el-form-item label="其他感兴趣的职位">
                     <el-input disabled="disabled" v-model="FormData.other_position" autocomplete="off" />
                   </el-form-item>
-                </el-col>
+                </el-col> -->
                 <el-col :span="8">
                   <el-form-item label="期望待遇">
                     <el-input disabled="disabled" v-model="FormData.price" autocomplete="off" />
                   </el-form-item>
                 </el-col>
-                <el-col :span="8">
+                <!-- <el-col :span="8">
                   <el-form-item label="可到岗日期">
                     <el-input disabled="disabled" v-model="FormData.come_time" autocomplete="off" />
                   </el-form-item>
-                </el-col>
+                </el-col> -->
                 <el-col :span="8">
                   <el-form-item label="通过何种途径获知该职位">
                     <el-input disabled="disabled" v-model="FormData.road" autocomplete="off" />
                   </el-form-item>
                 </el-col>
 
-                <el-col :span="8">
+                <!-- <el-col :span="8">
                   <el-form-item label="在此之前是否来我司面试过">
                     <el-radio-group v-model="FormData.isAgain" disabled="disabled">
                       <el-radio label="1" size="small">是</el-radio>
                       <el-radio label="2" size="small">否</el-radio>
                     </el-radio-group>
                   </el-form-item>
-                </el-col>
+                </el-col> -->
                 <el-col :span="10">
                   <el-form-item label="是否接受出差">
                     <el-radio-group v-model="FormData.is_business_trip" disabled="disabled">
@@ -93,8 +93,8 @@
                   </el-form-item>
                 </el-col>
               </el-row>
-
-              <el-form v-if="FormData.friend_name && FormData.friend_name !== '未填数据'">
+              <!-- 是否有认识的同事或亲人 -->
+              <!-- <el-form v-if="FormData.friend_name && FormData.friend_name !== '未填数据'">
                 <el-row :gutter="24">
                   <el-col :span="24">
                     <el-form-item label="在本公司任职的亲友及原同事"></el-form-item>
@@ -115,9 +115,9 @@
                     </el-form-item>
                   </el-col>
                 </el-row>
-              </el-form>
+              </el-form> -->
 
-              <el-form v-else>
+              <!-- <el-form v-else>
                 <el-row :gutter="24">
                   <el-col :span="8">
                     <el-form-item label="在本公司任职的亲友及原同事"></el-form-item>
@@ -126,23 +126,24 @@
                     <el-input disabled="disabled" autocomplete="off" placeholder="无在本公司任职的亲友及原同事" />
                   </el-col>
                 </el-row>
-              </el-form>
+              </el-form> -->
             </el-form>
+            <!-- 个人情况 -->
             <el-form>
               <el-row :gutter="24">
                 <el-col :span="24">
                   <el-form-item label="二、个人情况"></el-form-item>
                 </el-col>
                 <el-col :span="8">
-                  <el-form-item label="中文名">
+                  <el-form-item label="姓名">
                     <el-input disabled="disabled" v-model="FormData.cn_name" autocomplete="off" />
                   </el-form-item>
                 </el-col>
-                <el-col :span="8">
+                <!-- <el-col :span="8">
                   <el-form-item label="英文名">
                     <el-input disabled="disabled" v-model="FormData.eng_name" autocomplete="off" />
                   </el-form-item>
-                </el-col>
+                </el-col> -->
                 <el-col :span="8">
                   <el-form-item label="性别">
                     <el-input disabled="disabled" v-model="FormData.sex" autocomplete="off" />
@@ -198,11 +199,11 @@
                     <el-input disabled="disabled" v-model="FormData.email" autocomplete="off" />
                   </el-form-item>
                 </el-col>
-                <el-col :span="8">
+                <!-- <el-col :span="8">
                   <el-form-item label="微信号">
                     <el-input disabled="disabled" v-model="FormData.wx" autocomplete="off" />
                   </el-form-item>
-                </el-col>
+                </el-col> -->
                 <el-col :span="8">
                   <el-form-item label="婚姻状况">
                     <el-input disabled="disabled" v-model="FormData.marital" autocomplete="off" />
@@ -218,28 +219,28 @@
                     <el-input disabled="disabled" v-model="FormData.emergency_phone" autocomplete="off" />
                   </el-form-item>
                 </el-col>
-                <el-col :span="8">
+                <!-- <el-col :span="8">
                   <el-form-item label="计算机及等级证书等">
                     <el-input disabled="disabled" v-model="FormData.certificate" autocomplete="off" />
                   </el-form-item>
-                </el-col>
-                <el-col :span="8">
+                </el-col> -->
+                <!-- <el-col :span="8">
                   <el-form-item label="是否有驾驶证">
                     <el-input disabled="disabled" v-model="FormData.isCar" autocomplete="off" />
                   </el-form-item>
-                </el-col>
-                <el-col :span="8">
+                </el-col> -->
+                <!-- <el-col :span="8">
                   <el-form-item label="语种">
                     <el-input disabled="disabled" v-model="FormData.language" autocomplete="off" />
                   </el-form-item>
-                </el-col>
-                <el-col :span="8">
+                </el-col> -->
+                <!-- <el-col :span="8">
                   <el-form-item label="水平">
                     <el-input disabled="disabled" v-model="FormData.isLevel" autocomplete="off" />
                   </el-form-item>
-                </el-col>
+                </el-col> -->
               </el-row>
-              <el-form>
+              <!-- <el-form>
                 <el-row :gutter="24">
                   <el-col :span="8">
                     <el-form-item label="是否患有影响本职工作的各种疾病">
@@ -247,11 +248,12 @@
                     </el-form-item>
                   </el-col>
                 </el-row>
-              </el-form>
+              </el-form> -->
 
 
             </el-form>
-            <el-form>
+            <!-- 家庭情况 -->
+            <!-- <el-form>
               <el-col :span="24">
                 <el-form-item label="三、家庭情况"></el-form-item>
               </el-col>
@@ -345,7 +347,7 @@
                   </el-col>
                 </el-row>
               </el-form>
-            </el-form>
+            </el-form> -->
 
             <el-form :gutter="24">
               <el-col :span="24">
@@ -492,8 +494,8 @@
               </el-form>
 
             </el-form>
-
-            <el-form>
+            <!-- 培训 -->
+            <!-- <el-form>
 
               <el-col :span="24">
                 <el-form-item label="五、主要培训经历"></el-form-item>
@@ -562,7 +564,7 @@
                 </el-row>
               </el-form>
 
-            </el-form>
+            </el-form> -->
 
             <el-form>
 
@@ -602,11 +604,11 @@
                       <el-input disabled="disabled" v-model="FormData.leave_reason1" autocomplete="off" />
                     </el-form-item>
                   </el-col>
-                  <el-col :span="8">
+                  <!-- <el-col :span="8">
                     <el-form-item label="直接上级及电话">
                       <el-input disabled="disabled" v-model="FormData.superior_phone1" autocomplete="off" />
                     </el-form-item>
-                  </el-col>
+                  </el-col> -->
                 </el-row>
               </el-form>
 
@@ -647,11 +649,11 @@
                       <el-input disabled="disabled" v-model="FormData.leave_reason2" autocomplete="off" />
                     </el-form-item>
                   </el-col>
-                  <el-col :span="8">
+                  <!-- <el-col :span="8">
                     <el-form-item label="直接上级及电话">
                       <el-input disabled="disabled" v-model="FormData.superior_phone2" autocomplete="off" />
                     </el-form-item>
-                  </el-col>
+                  </el-col> -->
                 </el-row>
               </el-form>
 
@@ -687,17 +689,18 @@
                       <el-input disabled="disabled" v-model="FormData.leave_reason3" autocomplete="off" />
                     </el-form-item>
                   </el-col>
-                  <el-col :span="8">
+                  <!-- <el-col :span="8">
                     <el-form-item label="直接上级及电话">
                       <el-input disabled="disabled" v-model="FormData.superior_phone3" autocomplete="off" />
                     </el-form-item>
-                  </el-col>
+                  </el-col> -->
                 </el-row>
               </el-form>
 
             </el-form>
 
-            <el-form>
+            <!-- 证书 -->
+            <!-- <el-form>
 
               <el-col :span="24">
                 <el-form-item label="七、资格证书"></el-form-item>
@@ -767,7 +770,7 @@
                   </el-col>
                 </el-row>
               </el-form>
-            </el-form>
+            </el-form> -->
 
             <el-form>
               <el-row :gutter="24">
