@@ -6,8 +6,8 @@
           {{ item.name }}
         </el-breadcrumb-item>
       </template>
-    </el-breadcrumb> -->
-    <!-- <el-breadcrumb separator="/">
+    </el-breadcrumb>
+    <el-breadcrumb separator="/">
       <el-breadcrumb-item>系统总览</el-breadcrumb-item>
       <el-breadcrumb-item>核心技术</el-breadcrumb-item>
     </el-breadcrumb> -->

@@ -12,7 +12,7 @@
     <div class="menu">
       <el-menu :collapse="isFold" text-color="#b7bdc3" active-text-color="#fff" background-color="#001529"
         :default-active="defaultActive" :default-openeds="defaultOpeneds">
-        <!-- 1.系统总览 -->
+        <!-- 1.首页 -->
         <el-sub-menu index="1">
           <template #title>
             <el-icon>
@@ -23,7 +23,7 @@
           <el-menu-item index="1-1" @click="goHome()">数据总览</el-menu-item>
         </el-sub-menu>
 
-        <!-- 2.系统管理 -->
+        <!-- 2.应聘管理 -->
         <el-sub-menu index="2">
           <template #title>
             <el-icon>
@@ -35,7 +35,7 @@
 
         </el-sub-menu>
 
-        <!-- 3.商品中心 -->
+        <!-- 3.面试管理 -->
         <el-sub-menu index="3">
           <template #title>
             <el-icon>
@@ -43,19 +43,20 @@
             </el-icon>
             <span>面试管理</span>
           </template>
-          <el-menu-item index="3-1" @click="goInterview()">面试管理</el-menu-item>
+          <el-menu-item index="3-1" @click="goInterview()">面试信息管理</el-menu-item>
         </el-sub-menu>
 
-        <!--  4.正式员工管理      <>-->
-        <!-- <el-sub-menu index="4">
+        <!--  4.人才管理     -->
+        <el-sub-menu index="4">
           <template #title>
             <el-icon>
               <ShoppingBag />
             </el-icon>
-            <span>员工管理</span>
+            <span>人员管理</span>
           </template>
-          <el-menu-item index="4-1" @click="goEmployee()">员工管理</el-menu-item>
-        </el-sub-menu> -->
+          <el-menu-item index="4-1" @click="goTalentPortrait()">人才画像</el-menu-item>
+          <!-- <el-menu-item index="4-2" @click="goEmployee()">员工信息管理</el-menu-item> -->
+        </el-sub-menu>
       </el-menu>
     </div>
   </div>
@@ -96,6 +97,11 @@ function goEmployee () {
   const url = "/main/employee"
   router.push(url)
 }
+function goTalentPortrait () {
+  const url = "/main/talentPortrait"
+  router.push(url)
+}
+
 </script>
 <style lang="less" scoped>
 .fade-enter-active,

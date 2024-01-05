@@ -28,8 +28,11 @@ const router = createRouter({
           component: () => import("../views/main/interview/interview.vue")
         },
         {
-          path:"/main/employee",
-          component:()=>import("../views/main/employee/employee.vue")
+          path: "/main/employee",
+          component: () => import("../views/main/employee/employee.vue")
+        }, {
+          path: "/main/talentPortrait",
+          component: () => import("../views/main/talentPortrait/talentPortrait.vue")
         }
       ]
     },

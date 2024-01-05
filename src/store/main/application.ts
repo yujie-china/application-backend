@@ -27,12 +27,8 @@ const useApplicationStore = defineStore("application", {
       this.appDetailData = res.data
     },
     async upfinallyResultData (name, finallyResult) {
-
-
       await upFinallyResult(name, finallyResult)
-
     }
-
   }
 })
 export default useApplicationStore

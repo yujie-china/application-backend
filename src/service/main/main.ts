@@ -49,6 +49,17 @@ export function appFormDetail (name) {
     },
   })
 }
+
+//雷达图结果
+export function appFormDetailPlus (name) {
+  return hyRequest.get({
+    url: `backend/application/detailsDataPlus?name=${name}`,
+    headers: {
+      "Content-Type": "application/json",
+    },
+  })
+}
+
 //最终结果
 export function upFinallyResult (name, finallyResult) {
   const requestData = {
